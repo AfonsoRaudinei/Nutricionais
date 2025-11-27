@@ -317,37 +317,137 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                padding: 25px;
+                padding: 20px;
+                border-radius: 20px;
             }
 
             .header-top {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 10px;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .logo-placeholder,
             .qr-placeholder {
-                width: 90px;
-                height: 90px;
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-placeholder {
+                padding: 5px;
             }
 
             .header h1 {
-                font-size: 24px;
+                font-size: 20px;
             }
 
             .header .subtitle {
-                font-size: 18px;
+                font-size: 16px;
+            }
+
+            .header .description {
+                font-size: 13px;
             }
 
             .control-row {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
 
             .control-row label {
                 min-width: auto;
                 padding-top: 0;
+                font-size: 15px;
+            }
+
+            .select-trigger {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .select-dropdown {
+                font-size: 14px;
+            }
+
+            .option {
+                padding: 12px 14px;
+            }
+
+            .option label {
+                font-size: 14px;
+            }
+
+            .chart-section {
+                padding: 20px 15px;
+                border-radius: 20px;
+            }
+
+            .chart-header h2 {
+                font-size: 18px;
+            }
+
+            .chart-header p {
+                font-size: 13px;
+            }
+
+            .info-box {
+                padding: 15px;
+                border-radius: 12px;
+            }
+
+            .info-box h3 {
+                font-size: 15px;
+            }
+
+            .info-box p {
+                font-size: 13px;
+            }
+
+            canvas {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo-placeholder,
+            .qr-placeholder {
+                width: 70px;
+                height: 70px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .header .subtitle {
+                font-size: 15px;
+            }
+
+            .control-row label {
+                font-size: 14px;
+            }
+
+            .chart-section {
+                padding: 15px 10px;
+            }
+
+            canvas {
+                max-height: 250px;
             }
         }
     </style>
@@ -508,7 +608,6 @@
                 // Configuration
                 const startX = chart.chartArea.left + 10;
                 const startY = chart.chartArea.top - 50;
-                const tagHeight = 36;
                 const tagPadding = 8;
                 const gapBetweenTags = 8;
                 const maxWidth = chart.chartArea.width - 20;
@@ -526,8 +625,13 @@
                     const color = NUTRIENTS[nutrientCode].color;
                     const text = nutrientCode; // Use short code instead of full name
                     
+                    // Adjust sizes for mobile
+                    const isMobile = chart.canvas.offsetWidth < 500;
+                    const fontSize = isMobile ? '13px' : '15px';
+                    const tagHeightValue = isMobile ? 32 : 36;
+                    
                     // Measure text to calculate tag width
-                    ctx.font = '700 15px -apple-system, BlinkMacSystemFont, sans-serif';
+                    ctx.font = `700 ${fontSize} -apple-system, BlinkMacSystemFont, sans-serif`;
                     const textWidth = ctx.measureText(text).width;
                     const xWidth = ctx.measureText('×').width;
                     const tagWidth = textWidth + xWidth + tagPadding * 4 + 5;
@@ -548,33 +652,33 @@
                     
                     ctx.fillStyle = color;
                     ctx.beginPath();
-                    ctx.roundRect(currentX, currentY, tagWidth, tagHeight, 18);
+                    ctx.roundRect(currentX, currentY, tagWidth, tagHeightValue, 18);
                     ctx.fill();
                     ctx.restore();
                     
                     // Draw text
                     ctx.fillStyle = 'white';
-                    ctx.font = '700 15px -apple-system, BlinkMacSystemFont, sans-serif';
+                    ctx.font = `700 ${fontSize} -apple-system, BlinkMacSystemFont, sans-serif`;
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(text, currentX + tagPadding + 6, currentY + tagHeight / 2);
+                    ctx.fillText(text, currentX + tagPadding + 6, currentY + tagHeightValue / 2);
                     
                     // Draw X button
-                    ctx.font = '700 20px -apple-system, BlinkMacSystemFont, sans-serif';
+                    ctx.font = `700 ${isMobile ? '18px' : '20px'} -apple-system, BlinkMacSystemFont, sans-serif`;
                     const xPosition = currentX + tagPadding + 6 + textWidth + tagPadding;
-                    ctx.fillText('×', xPosition, currentY + tagHeight / 2);
+                    ctx.fillText('×', xPosition, currentY + tagHeightValue / 2);
                     
                     // Store clickable area for X button
                     chart.customLegendAreas.push({
                         x: currentX,
                         y: currentY,
                         width: tagWidth,
-                        height: tagHeight,
+                        height: tagHeightValue,
                         nutrientCode: nutrientCode
                     });
                     
                     // Update position for next tag
                     currentX += tagWidth + gapBetweenTags;
-                    rowHeight = Math.max(rowHeight, tagHeight);
+                    rowHeight = Math.max(rowHeight, tagHeightValue);
                 });
             }
         };
@@ -820,10 +924,10 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    aspectRatio: 2.2,
+                    aspectRatio: window.innerWidth < 768 ? 1.2 : 2.2,
                     layout: {
                         padding: {
-                            top: 80,
+                            top: window.innerWidth < 768 ? 60 : 80,
                             right: 10,
                             bottom: 10,
                             left: 10
