@@ -262,6 +262,14 @@
             margin: 0;
         }
 
+        .nutrient-icon {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
         /* Chart Section */
         .chart-section {
             background: white;
@@ -484,60 +492,60 @@
                     <div class="select-dropdown" id="nutrientDropdown">
                         <div class="option">
                             <input type="checkbox" id="n" value="N" checked>
-                            <label for="n">Nitrogênio (N)</label>
+                            <label for="n"><span class="nutrient-icon">🧬</span> Nitrogênio (N)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="p" value="P">
-                            <label for="p">Fósforo (P)</label>
+                            <label for="p"><span class="nutrient-icon">🔌</span> Fósforo (P)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="k" value="K" checked>
-                            <label for="k">Potássio (K)</label>
+                            <label for="k"><span class="nutrient-icon">🔋</span> Potássio (K)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="ca" value="Ca">
-                            <label for="ca">Cálcio (Ca)</label>
+                            <label for="ca"><span class="nutrient-icon">🧱</span> Cálcio (Ca)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="mg" value="Mg">
-                            <label for="mg">Magnésio (Mg)</label>
+                            <label for="mg"><span class="nutrient-icon">🌞</span> Magnésio (Mg)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="s" value="S">
-                            <label for="s">Enxofre (S)</label>
+                            <label for="s"><span class="nutrient-icon">⚗️</span> Enxofre (S)</label>
                         </div>
                         <div style="height: 1px; background: rgba(0,0,0,0.1); margin: 8px 0;"></div>
                         <div class="option">
                             <input type="checkbox" id="b" value="B">
-                            <label for="b">Boro (B)</label>
+                            <label for="b"><span class="nutrient-icon">🌸</span> Boro (B)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="cu" value="Cu">
-                            <label for="cu">Cobre (Cu)</label>
+                            <label for="cu"><span class="nutrient-icon">⚡</span> Cobre (Cu)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="fe" value="Fe">
-                            <label for="fe">Ferro (Fe)</label>
+                            <label for="fe"><span class="nutrient-icon">🧲</span> Ferro (Fe)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="mn" value="Mn">
-                            <label for="mn">Manganês (Mn)</label>
+                            <label for="mn"><span class="nutrient-icon">🌀</span> Manganês (Mn)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="zn" value="Zn">
-                            <label for="zn">Zinco (Zn)</label>
+                            <label for="zn"><span class="nutrient-icon">✨</span> Zinco (Zn)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="mo" value="Mo">
-                            <label for="mo">Molibdênio (Mo)</label>
+                            <label for="mo"><span class="nutrient-icon">🔬</span> Molibdênio (Mo)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="co" value="Co">
-                            <label for="co">Cobalto (Co)</label>
+                            <label for="co"><span class="nutrient-icon">💙</span> Cobalto (Co)</label>
                         </div>
                         <div class="option">
                             <input type="checkbox" id="ni" value="Ni">
-                            <label for="ni">Níquel (Ni)</label>
+                            <label for="ni"><span class="nutrient-icon">⚙️</span> Níquel (Ni)</label>
                         </div>
                     </div>
                 </div>
@@ -623,7 +631,7 @@
                     if (!nutrientCode) return;
                     
                     const color = NUTRIENTS[nutrientCode].color;
-                    const text = nutrientCode; // Use short code instead of full name
+                    const text = nutrientCode; // Use only code (no icon)
                     
                     // Adjust sizes for mobile
                     const isMobile = chart.canvas.offsetWidth < 500;
@@ -739,20 +747,20 @@
         };
 
         const NUTRIENTS = {
-            N: { name: 'Nitrogênio (N)', color: '#007AFF' },
-            P: { name: 'Fósforo (P)', color: '#FF9500' },
-            K: { name: 'Potássio (K)', color: '#34C759' },
-            Ca: { name: 'Cálcio (Ca)', color: '#FF3B30' },
-            Mg: { name: 'Magnésio (Mg)', color: '#AF52DE' },
-            S: { name: 'Enxofre (S)', color: '#FFCC00' },
-            B: { name: 'Boro (B)', color: '#5856D6' },
-            Cu: { name: 'Cobre (Cu)', color: '#FF2D55' },
-            Fe: { name: 'Ferro (Fe)', color: '#8E8E93' },
-            Mn: { name: 'Manganês (Mn)', color: '#30B0C7' },
-            Zn: { name: 'Zinco (Zn)', color: '#32ADE6' },
-            Mo: { name: 'Molibdênio (Mo)', color: '#BF5AF2' },
-            Co: { name: 'Cobalto (Co)', color: '#FF6482' },
-            Ni: { name: 'Níquel (Ni)', color: '#64D2FF' }
+            N: { name: 'Nitrogênio (N)', color: '#007AFF', icon: '🧬' },
+            P: { name: 'Fósforo (P)', color: '#FF9500', icon: '🔌' },
+            K: { name: 'Potássio (K)', color: '#34C759', icon: '🔋' },
+            Ca: { name: 'Cálcio (Ca)', color: '#FF3B30', icon: '🧱' },
+            Mg: { name: 'Magnésio (Mg)', color: '#AF52DE', icon: '🌞' },
+            S: { name: 'Enxofre (S)', color: '#FFCC00', icon: '⚗️' },
+            B: { name: 'Boro (B)', color: '#5856D6', icon: '🌸' },
+            Cu: { name: 'Cobre (Cu)', color: '#FF2D55', icon: '⚡' },
+            Fe: { name: 'Ferro (Fe)', color: '#8E8E93', icon: '🧲' },
+            Mn: { name: 'Manganês (Mn)', color: '#30B0C7', icon: '🌀' },
+            Zn: { name: 'Zinco (Zn)', color: '#32ADE6', icon: '✨' },
+            Mo: { name: 'Molibdênio (Mo)', color: '#BF5AF2', icon: '🔬' },
+            Co: { name: 'Cobalto (Co)', color: '#FF6482', icon: '💙' },
+            Ni: { name: 'Níquel (Ni)', color: '#64D2FF', icon: '⚙️' }
         };
 
         const MATERIALS = {
